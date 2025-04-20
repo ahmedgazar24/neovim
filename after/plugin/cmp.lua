@@ -118,28 +118,12 @@ lspconfig['rust_analyzer'].setup {
     },
 }
 
+local lspconfig = require('lspconfig')
 
--- json LSP setup
-lspconfig['tsserver'].setup {
-    cmd = { "typescript-language-server", "--stdio" },
-    filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-    root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
-    capabilities = require('cmp_nvim_lsp').default_capabilities(),
-    settings = {
-        typescript = {
-            format = {
-                indentSize = vim.o.shiftwidth,
-                convertTabsToSpaces = vim.o.expandtab,
-                tabSize = vim.o.tabstop,
-            }
-        },
-        javascript = {
-            format = {
-                indentSize = vim.o.shiftwidth,
-                convertTabsToSpaces = vim.o.expandtab,
-                tabSize = vim.o.tabstop,
-            }
-        }
-    }
-}
+lspconfig.ts_ls.setup({
+  cmd = { "typescript-language-server", "--stdio" },
+  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+  root_dir = lspconfig.util.root_pattern("tsconfig.json", "jsconfig.json", "package.json", ".git"),
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+})
 
